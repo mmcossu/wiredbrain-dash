@@ -14,3 +14,26 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@font-face {
+    font-family: Raleway-Regular;
+    src: url(../assets/fonts/Raleway-Regular.ttf);
+}
+@font-face {
+    font-family: Raleway-Medium;
+    src: url(../assets/fonts/Raleway-Medium.ttf);
+}
+@font-face {
+    font-family: Raleway-Bold;
+    src: url(../assets/fonts/Raleway-Bold.ttf);
+}
+
+.perfect-center {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+

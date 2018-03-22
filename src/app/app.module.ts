@@ -7,6 +7,20 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+//firebase libraries
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+//firebase configs
+export const firebaseConfig = {
+  apiKey: "AIzaSyDOYOPyxoj-Am3ACZ4RXP6z9VVd5P_N1Lw",
+  authDomain: "wiredbrain-mmc.firebaseapp.com",
+  databaseURL: "https://wiredbrain-mmc.firebaseio.com",
+  storageBucket: "wiredbrain-mmc.appspot.com",
+  messagingSenderId: '85616389058'
+};
+
 @NgModule({
   declarations: [
     MyApp,
@@ -14,7 +28,11 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    //firebase
+    AngularFireModule.initializeApp(firebaseConfig) ,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
