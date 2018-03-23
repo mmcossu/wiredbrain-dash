@@ -1,29 +1,42 @@
 <ion-header>
 
-  <ion-toolbar color="dark">
+  <ion-toolbar color="dark" *ngIf="!loggedIn">
     <img src="assets/imgs/logo.png" class="logo">
-
     <ion-title class="perfect-center">Wired Brain Coffee</ion-title>
-
     <ion-buttons end>
       <button ion-button small outline color="white" [navPush]="loginPage">
         Sign In
       </button>
     </ion-buttons>
-    
+  </ion-toolbar>
+  
+  <ion-toolbar color="dark" *ngIf="loggedIn">
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-col col-9 class="loginText">
+          <ion-icon name="contact" color="white"></ion-icon>
+          {{loggedIn}}
+        </ion-col>
+        <ion-col col-3>
+          <button ion-button small outline color="white" [navPush]="">
+            Sign Out
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 
 </ion-header>
 
 <ion-content padding>
-  
+
   <ion-list *ngFor="let menu of menuData" no-padding>
-    <ion-card [navPush]=menu.pushPage >
+    <ion-card [navPush]=menu.pushPage>
       <ion-card-header>{{menu.title}}</ion-card-header>
       <ion-card-content>
-        <img src="{{menu.pic}}"/>
+        <img src="{{menu.pic}}" />
       </ion-card-content>
     </ion-card>
   </ion-list>
-  
+
 </ion-content>

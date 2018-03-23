@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'page-home',
@@ -14,10 +16,12 @@ export class HomePage {
     {title:'Locations', pic:'../../assets/imgs/location.jpeg', pushPage: 'LocationPage'},
   ];
 
-  loginPage:any
-
-  constructor(public navCtrl: NavController) {
+  loginPage:any;
+  loggedIn:any;
+  
+  constructor(public navCtrl: NavController, private ngFireAuth: AngularFireAuth) {
     this.loginPage = 'LoginPage';
+    this.ngFireAuth.auth.onAuthStateChanged(user => this.loggedIn = user.email);
   }
 
 }

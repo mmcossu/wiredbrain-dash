@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
-//import * as firebase from 'firebase';
+import * as firebase from 'firebase';
 
 /**
  * Generated class for the RegisterPage page.
