@@ -34,7 +34,10 @@ page-home {
     }
     [ion-button] {
         border-radius: 4px;
+        border-color: white;
+        color: white;
         text-transform: none;
+        max-width: 5.0em;
     }
     .loginText {
         white-space: nowrap;

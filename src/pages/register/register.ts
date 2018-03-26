@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 /**
  * Generated class for the RegisterPage page.
@@ -22,8 +23,11 @@ export class RegisterPage {
     email:'', passWrd1: '', passWrd2: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              public alertCtrl: AlertController, private ngFireAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              public alertCtrl: AlertController, 
+              private ngFireAuth: AngularFireAuth,
+              private userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -48,8 +52,9 @@ export class RegisterPage {
 
   registrationSuccess(result){
     this.displayAlert('Account created', 'Account created for the email address: ' + result.email);
-    this.ngFireAuth.auth.signInWithEmailAndPassword(this.regData.email, this.regData.passWrd1)
+    // this.ngFireAuth.auth.signInWithEmailAndPassword(this.regData.email, this.regData.passWrd1)
+    this.userService.logIn(this.regData.email, this.regData.passWrd1)
     .then(result => this.navCtrl.popToRoot())
-    .catch(err => this.displayAlert('Error', err));
+    //.catch(err => this.displayAlert('Error', err));
   }
 }

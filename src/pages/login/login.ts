@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { empty } from 'rxjs/Observer';
+import { HomePage } from "../home/home";
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+
 /**
  * Generated class for the LoginPage page.
- *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
@@ -16,13 +19,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class LoginPage {
 
   regPage:any;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  login = { email:'', password:'' };
+
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private userService: UserServiceProvider) {
     this.regPage = 'RegisterPage';
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  signIn(){
+    if (!this.login.email || !this.login.password) {
+      this.userService.displayAlert('Error', 'Empty email or password');
+    } else {
+      this.userService.logIn(this.login.email, this.login.password)
+      .then(svcRes => {
+        if(this.userService.hasLoggedIn){
+          this.navCtrl.popToRoot();
+        } else {
+          this.login = { email:'', password:'' };
+        }
+      })
+    }
   }
 
 }
