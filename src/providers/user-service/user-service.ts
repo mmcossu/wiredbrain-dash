@@ -1,13 +1,13 @@
-//import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { AlertController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth'
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 import * as firebase from 'firebase/app';
 
 import { Storage } from "@ionic/storage";
-import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 
+import { RewardServiceProvider } from "../reward-service/reward-service";
 /*
   Generated class for the UserServiceProvider provider.
   See https://angular.io/guide/dependency-injection for more info on providers
@@ -23,7 +23,8 @@ export class UserServiceProvider {
   constructor(private ngFireAuth: AngularFireAuth, 
               private alertCtrl: AlertController,
               private storage: Storage,
-              private ngFbeDb: AngularFireDatabase) {
+              private ngFbeDb: AngularFireDatabase,
+              private rewardService: RewardServiceProvider) {
     
     this.dbUsers = this.ngFbeDb.list('/users');
   }
@@ -38,8 +39,11 @@ export class UserServiceProvider {
       this.storageControl('get', email)
       .then(result => {
         if(result){
-          this.updateUser(email, result)
-          .then(updated => console.log(email, updated));
+          this.rewardService.rewardsCheck(email, result)
+          .then(rewardRes => {
+            this.updateUser(email, result)
+            .then(updated => console.log(email, updated));
+          })
         } else {
           this.saveNewUser(email)   //new user in local storage
           .then(resNew => this.displayAlert(email, 'New account created for this user'));
@@ -107,7 +111,8 @@ export class UserServiceProvider {
   updateUser(email, userData){
     let updateData = {
       creation: userData.creation,
-      logins: userData.logins + 1,
+      // logins: userData.logins + 1, // fatto da reward service
+      logins: userData.logins,
       rewardCount: userData.rewardCount,
       lastLogin: new Date().toLocaleString(),
       id: userData.id

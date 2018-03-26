@@ -5,15 +5,20 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+//pages
 import { HomePage } from '../pages/home/home';
+//modules
+import { RewardModalPageModule } from "../pages/reward-modal/reward-modal.module";
 
 //firebase libraries
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { UserServiceProvider } from '../providers/user-service/user-service';
 //storage
 import { IonicStorageModule } from "@ionic/storage";
+//providers
+import { UserServiceProvider } from '../providers/user-service/user-service';
+import { RewardServiceProvider } from '../providers/reward-service/reward-service';
 
 //firebase configs
 export const firebaseConfig = {
@@ -36,7 +41,8 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig) ,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    RewardModalPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,7 +53,8 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserServiceProvider
+    UserServiceProvider,
+    RewardServiceProvider
   ]
 })
 export class AppModule {}
