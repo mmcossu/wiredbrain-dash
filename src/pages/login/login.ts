@@ -34,6 +34,7 @@ export class LoginPage {
       this.userService.logIn(this.login.email, this.login.password)
       .then(svcRes => {
         if(this.userService.hasLoggedIn){
+          this.navCtrl.setRoot(HomePage);
           this.navCtrl.popToRoot();
         } else {
           this.login = { email:'', password:'' };

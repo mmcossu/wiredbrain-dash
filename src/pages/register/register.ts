@@ -54,7 +54,10 @@ export class RegisterPage {
     this.displayAlert('Account created', 'Account created for the email address: ' + result.email);
     // this.ngFireAuth.auth.signInWithEmailAndPassword(this.regData.email, this.regData.passWrd1)
     this.userService.logIn(this.regData.email, this.regData.passWrd1)
-    .then(result => this.navCtrl.popToRoot())
+    .then(result => {
+      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.popToRoot();
+    })
     //.catch(err => this.displayAlert('Error', err));
   }
 }
