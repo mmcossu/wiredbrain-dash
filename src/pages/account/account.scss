@@ -1,0 +1,20 @@
+page-account {
+    ion-navbar {
+        text-align: center;
+    }
+    h1, h2 {
+        color: black;
+    }
+    ion-icon {
+        font-size: 3.125em;
+    }
+    ion-list-header ion-label {
+        font-size: 1.375em;
+    }
+    ion-badge {
+        font-size: 1.125em;
+    }
+    .rewards {
+        text-align: center;
+    }
+}
