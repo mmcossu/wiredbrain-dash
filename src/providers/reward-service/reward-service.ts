@@ -16,8 +16,8 @@ export class RewardServiceProvider {
               private modalCtrl: ModalController) {
   }
 
-  rewards: any[] = [];
-  list: any[] = [.50, .75, 1.00, 1.25, 1.50, 1.75, 2.00, .25, .50, .75]
+  rewards:  any[] = [];
+  list:     any[] = [.50, .75, 1.00, 1.25, 1.50, 1.75, 2.00, .25, .50, .75]
 
   rewardsCheck(email, userData){
     
@@ -26,10 +26,8 @@ export class RewardServiceProvider {
       if ((userData.logins == 2) || (userData.logins % 10 == 0)) {
         let newReward = this.rewardChance(email, userData.rewardCount);
         userData.rewardCount = newReward;
-        resolve(userData);
-      } else {
-        resolve(userData);
       }
+      resolve(userData);
     });
   }
 
@@ -39,15 +37,12 @@ export class RewardServiceProvider {
       if(chance > 50){
         count++;
         this.generateReward(email, count);
-        return count;
-      } else {
-        return count;
       }
     } else {
       count++;
       this.generateReward(email, count);
-      return count;
     }
+    return count;
   }
 
   generateReward(email, count){
