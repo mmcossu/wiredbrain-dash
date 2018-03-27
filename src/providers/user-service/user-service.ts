@@ -14,11 +14,25 @@ import { RewardServiceProvider } from "../reward-service/reward-service";
   and Angular DI.
 */
 
+
+
 @Injectable()
 export class UserServiceProvider {
 
-  dbUsers : FirebaseListObservable<any>;
-  hasLoggedIn:boolean;
+  dbUsers :     FirebaseListObservable<any>;
+  email:        string;
+  
+  private _loggedIn: boolean;
+  get hasLoggedIn(): boolean {
+    if(this._loggedIn) return this._loggedIn;
+    this.ngFireAuth.auth.onAuthStateChanged(user => {
+      this._loggedIn = user && user.email ? true : false;
+      return this._loggedIn;
+    });
+  }
+  set hasLoggedIn(value:boolean){
+    this._loggedIn = value;
+  }
 
   constructor(private ngFireAuth: AngularFireAuth, 
               private alertCtrl: AlertController,
@@ -27,6 +41,7 @@ export class UserServiceProvider {
               private rewardService: RewardServiceProvider) {
     
     this.dbUsers = this.ngFbeDb.list('/users');
+    this._loggedIn = false;
   }
 
   displayAlert(title, subtitle?){
@@ -50,6 +65,7 @@ export class UserServiceProvider {
         }
       });
       this.hasLoggedIn = true;
+      this.email = email;
       return fbResult;
     })
     .catch(error => {
@@ -63,7 +79,10 @@ export class UserServiceProvider {
     //this.storageControl('delete');
     let email = this.ngFireAuth.auth.currentUser.email;
     this.ngFireAuth.auth.signOut()
-    .then(res => this.displayAlert('Signed Out', email))
+    .then(res => {
+      this.hasLoggedIn = false;
+      this.displayAlert('Signed Out', email);
+    })
     .catch(err => this.displayAlert('Error', err));
   }
 
@@ -79,7 +98,7 @@ export class UserServiceProvider {
           this.displayAlert('Warning', 'About to delete all user data');
           this.storage.clear();
         } 
-          break;
+        break;
       default: return;
     }
   }

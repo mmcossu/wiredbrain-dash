@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import * as firebase from 'firebase/app';
 
@@ -8,7 +8,7 @@ import * as firebase from 'firebase/app';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   menuData = [
     {title:'Our Menu', pic:'../../assets/imgs/menu.jpeg', pushPage: 'MenuPage'},
@@ -17,19 +17,35 @@ export class HomePage {
     {title:'Locations', pic:'../../assets/imgs/location.jpeg', pushPage: 'LocationPage'},
   ];
 
-  loginPage:any;
-  loggedIn:any;
+  loginPage:  string;
+  loggedIn:   boolean;
+  userEmail:  string;
   
   constructor(public navCtrl: NavController, 
               private ngFireAuth: AngularFireAuth, 
               private userService: UserServiceProvider) {
+  }
+
+  ngOnInit(){
     this.loginPage = 'LoginPage';
-    this.ngFireAuth.auth.onAuthStateChanged(user => this.loggedIn = user ? user.email : '');
+    if (this.userService.hasLoggedIn) {
+      this.loggedIn = true;
+      this.userEmail = this.userService.email;
+    }
+    //this.ngFireAuth.auth.onAuthStateChanged(user => this.loggedIn = user ? user.email : '' );
   }
 
   signOut(){
     this.userService.logOut();
-    this.loggedIn = '';
+    this.loggedIn = false;
+  }
+
+  pushCheckPage(page){
+    this.navCtrl.push(page)
+    .then(result => {
+      if(!result)
+        this.userService.displayAlert('Sorry','You must first register an account');
+    });
   }
 
 }

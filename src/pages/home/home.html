@@ -15,7 +15,7 @@
       <ion-row align-items-center>
         <ion-col col-9 class="loginText">
           <ion-icon name="contact" color="white"></ion-icon>
-          {{loggedIn}}
+          {{userEmail}}
         </ion-col>
         <ion-col col-3>
           <button ion-button small outline color="white" (click)="signOut()">
@@ -31,7 +31,7 @@
 <ion-content padding>
 
   <ion-list *ngFor="let menu of menuData" no-padding>
-    <ion-card [navPush]=menu.pushPage>
+    <ion-card (click)="pushCheckPage(menu.pushPage)">
       <ion-card-header>{{menu.title}}</ion-card-header>
       <ion-card-content>
         <img src="{{menu.pic}}" />
