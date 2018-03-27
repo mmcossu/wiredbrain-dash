@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "85616389058",
+    "firebase_url": "https://wiredbrain-mmc.firebaseio.com",
+    "project_id": "wiredbrain-mmc",
+    "storage_bucket": "wiredbrain-mmc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85616389058:android:d8fed6135186b9a2",
+        "android_client_info": {
+          "package_name": "com.wiredbrainmmc.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85616389058-l1pf44ec5kj7gm2720jbpllfb0kgct70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRlElTj9VOjC3VJT_9kTdJVSSk1K2-UGo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

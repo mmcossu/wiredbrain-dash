@@ -14,6 +14,7 @@ import { RewardModalPageModule } from "../pages/reward-modal/reward-modal.module
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { FCM } from "@ionic-native/fcm";
 //storage
 import { IonicStorageModule } from "@ionic/storage";
 //providers
@@ -54,7 +55,8 @@ export const firebaseConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserServiceProvider,
-    RewardServiceProvider
+    RewardServiceProvider,
+    FCM
   ]
 })
 export class AppModule {}
