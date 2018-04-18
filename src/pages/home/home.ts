@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import * as firebase from 'firebase/app';
-import { FCM } from "@ionic-native/fcm";
+// import { FCM } from "@ionic-native/fcm";
 
 @Component({
   selector: 'page-home',
@@ -15,7 +15,7 @@ export class HomePage implements OnInit {
     {title:'Our Menu', pic:'assets/imgs/menu.jpeg', pushPage: 'MenuPage'},
     {title:'Accounts', pic:'assets/imgs/account.jpeg', pushPage: 'AccountPage'},
     {title:'About Us', pic:'assets/imgs/about.jpeg', pushPage: 'AboutPage'},
-    {title:'Locations', pic:'assets/imgs/location.jpeg', pushPage: 'LocationPage'},
+    {title:'Locations', pic:'assets/imgs/location.jpeg', pushPage: 'LocationsPage'},
   ];
 
   loginPage:  string;
@@ -24,8 +24,8 @@ export class HomePage implements OnInit {
   
   constructor(public navCtrl: NavController, 
               private ngFireAuth: AngularFireAuth, 
-              private userService: UserServiceProvider,
-              private fcm: FCM) {
+              private userService: UserServiceProvider){
+              // private fcm: FCM) {
   }
 
   ngOnInit(){
@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
       this.userEmail = this.userService.email;
     }
     //this.ngFireAuth.auth.onAuthStateChanged(user => this.loggedIn = user ? user.email : '' );
-    this.initFcm();
+    // this.initFcm();
   }
 
   signOut(){
@@ -51,11 +51,11 @@ export class HomePage implements OnInit {
     });
   }
 
-  initFcm(){
-    this.fcm.onNotification().subscribe(data => {
-      console.log('Sent', data);
-      this.userService.displayAlert('Sent', data);
-    });
-  }
+  // initFcm(){
+  //   this.fcm.onNotification().subscribe(data => {
+  //     console.log('Sent', data);
+  //     this.userService.displayAlert('Sent', data);
+  //   });
+  // }
 
 }
